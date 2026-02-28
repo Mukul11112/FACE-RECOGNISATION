@@ -1,0 +1,88 @@
+2025-11-13 14:00:54,908 DEBUG Face detected at (np.int32(911), np.int32(503), np.int32(429), np.int32(429))
+2025-11-13 14:00:54,912 DEBUG Predict result id=23 conf=29.62529405546417
+2025-11-13 14:00:57,779 DEBUG Face detected at (np.int32(905), np.int32(449), np.int32(433), np.int32(433))
+2025-11-13 14:00:57,783 DEBUG Predict result id=23 conf=35.19477409553574
+2025-11-13 14:01:00,605 DEBUG Face detected at (np.int32(888), np.int32(533), np.int32(400), np.int32(400))
+2025-11-13 14:01:00,609 DEBUG Predict result id=23 conf=30.701495202560004
+2025-11-13 14:01:02,086 DEBUG Face detected at (np.int32(881), np.int32(462), np.int32(426), np.int32(426))
+2025-11-13 14:01:02,090 DEBUG Predict result id=23 conf=28.994408303258997
+2025-11-13 14:01:03,855 DEBUG Face detected at (np.int32(831), np.int32(449), np.int32(436), np.int32(436))
+2025-11-13 14:01:03,860 DEBUG Predict result id=23 conf=38.51817024950072
+2025-11-13 14:01:06,720 DEBUG Face detected at (np.int32(846), np.int32(467), np.int32(446), np.int32(446))
+2025-11-13 14:01:06,725 DEBUG Predict result id=23 conf=29.229024641568422
+2025-11-13 14:01:08,226 DEBUG Face detected at (np.int32(847), np.int32(478), np.int32(426), np.int32(426))
+2025-11-13 14:01:08,231 DEBUG Predict result id=23 conf=36.177859594802285
+2025-11-13 14:01:09,130 DEBUG Face detected at (np.int32(855), np.int32(466), np.int32(429), np.int32(429))
+2025-11-13 14:01:09,134 DEBUG Predict result id=23 conf=33.62662422008654
+2025-11-13 14:01:12,103 DEBUG Face detected at (np.int32(852), np.int32(458), np.int32(434), np.int32(434))
+2025-11-13 14:01:12,107 DEBUG Predict result id=23 conf=28.13277111609934
+2025-11-13 14:01:13,027 DEBUG Face detected at (np.int32(850), np.int32(467), np.int32(436), np.int32(436))
+2025-11-13 14:01:13,031 DEBUG Predict result id=23 conf=34.14022463410985
+2025-11-13 14:01:15,140 DEBUG Face detected at (np.int32(864), np.int32(505), np.int32(407), np.int32(407))
+2025-11-13 14:01:15,144 DEBUG Predict result id=23 conf=40.28978595916635
+2025-11-13 15:51:26,138 DEBUG Face detected at (np.int32(917), np.int32(554), np.int32(77), np.int32(77))
+2025-11-13 15:51:26,142 DEBUG Predict result id=23 conf=133.4235810217585
+2025-11-13 15:51:26,237 DEBUG Face detected at (np.int32(861), np.int32(553), np.int32(77), np.int32(77))
+2025-11-13 15:51:26,240 DEBUG Predict result id=23 conf=130.0281120319356
+2025-11-13 15:51:26,336 DEBUG Face detected at (np.int32(857), np.int32(551), np.int32(83), np.int32(83))
+2025-11-13 15:51:26,338 DEBUG Predict result id=12 conf=120.63102230744826
+2025-11-13 15:51:26,402 DEBUG Face detected at (np.int32(858), np.int32(554), np.int32(81), np.int32(81))
+2025-11-13 15:51:26,405 DEBUG Predict result id=23 conf=127.20626795992885
+2025-11-13 15:51:26,503 DEBUG Face detected at (np.int32(860), np.int32(554), np.int32(79), np.int32(79))
+2025-11-13 15:51:26,506 DEBUG Predict result id=23 conf=127.8664613634408
+2025-11-13 15:51:26,607 DEBUG Face detected at (np.int32(864), np.int32(554), np.int32(77), np.int32(77))
+2025-11-13 15:51:26,609 DEBUG Predict result id=23 conf=129.82496284132725
+2025-11-13 15:51:26,705 DEBUG Face detected at (np.int32(867), np.int32(556), np.int32(74), np.int32(74))
+2025-11-13 15:51:26,708 DEBUG Predict result id=12 conf=128.58478593101398
+2025-11-13 15:51:26,808 DEBUG Face detected at (np.int32(858), np.int32(559), np.int32(72), np.int32(72))
+2025-11-13 15:51:26,810 DEBUG Predict result id=12 conf=136.23147079633455
+2025-11-13 15:51:26,903 DEBUG Face detected at (np.int32(858), np.int32(500), np.int32(349), np.int32(349))
+2025-11-13 15:51:26,907 DEBUG Predict result id=1 conf=43.26404096887981
+2025-11-13 15:51:33,781 DEBUG Face detected at (np.int32(1104), np.int32(492), np.int32(349), np.int32(349))
+2025-11-13 15:51:33,785 DEBUG Predict result id=1 conf=40.57521557511792
+2025-11-13 15:51:41,438 DEBUG Face detected at (np.int32(1059), np.int32(588), np.int32(446), np.int32(446))
+2025-11-13 15:51:41,442 DEBUG Predict result id=1 conf=22.683578037095074
+2025-11-17 16:57:36,176 DEBUG Face detected at (np.int32(1163), np.int32(471), np.int32(352), np.int32(352))
+2025-11-17 16:57:36,181 DEBUG Predict result id=23 conf=75.08102471480606
+2025-11-17 16:57:36,398 DEBUG Face detected at (np.int32(509), np.int32(294), np.int32(432), np.int32(432))
+2025-11-17 16:57:36,403 DEBUG Predict result id=3022007 conf=39.89365395449631
+2025-11-17 16:57:39,128 DEBUG Face detected at (np.int32(622), np.int32(269), np.int32(499), np.int32(499))
+2025-11-17 16:57:39,134 DEBUG Predict result id=3022007 conf=31.55380955660484
+2025-11-17 16:57:46,595 DEBUG Face detected at (np.int32(776), np.int32(386), np.int32(274), np.int32(274))
+2025-11-17 16:57:46,600 DEBUG Predict result id=3022007 conf=64.19203154019985
+2025-11-17 16:57:49,485 DEBUG Face detected at (np.int32(1338), np.int32(540), np.int32(517), np.int32(517))
+2025-11-17 16:57:49,491 DEBUG Predict result id=3022007 conf=29.613238879792785
+2025-11-17 16:57:51,866 DEBUG Face detected at (np.int32(1317), np.int32(376), np.int32(467), np.int32(467))
+2025-11-17 16:57:51,871 DEBUG Predict result id=3022007 conf=45.388004072028004
+2025-11-18 11:17:12,987 DEBUG Face detected at (np.int32(816), np.int32(346), np.int32(494), np.int32(494))
+2025-11-18 11:17:12,993 DEBUG Predict result id=1 conf=25.03628841209831
+2025-11-18 11:17:15,735 DEBUG Face detected at (np.int32(763), np.int32(970), np.int32(52), np.int32(52))
+2025-11-18 11:17:15,739 DEBUG Predict result id=1 conf=148.3860475923222
+2025-11-18 11:17:16,067 DEBUG Face detected at (np.int32(753), np.int32(952), np.int32(52), np.int32(52))
+2025-11-18 11:17:16,070 DEBUG Predict result id=1 conf=145.4743127151264
+2025-11-18 11:17:16,236 DEBUG Face detected at (np.int32(733), np.int32(961), np.int32(52), np.int32(52))
+2025-11-18 11:17:16,240 DEBUG Predict result id=1 conf=141.86764929540527
+2025-11-18 11:17:16,708 DEBUG Face detected at (np.int32(967), np.int32(369), np.int32(519), np.int32(519))
+2025-11-18 11:17:16,716 DEBUG Predict result id=1 conf=33.60496873451865
+2025-11-18 11:42:36,009 DEBUG Face detected at (np.int32(632), np.int32(471), np.int32(520), np.int32(520))
+2025-11-18 11:42:36,016 DEBUG Predict result id=21 conf=25.180987111859682
+2025-11-18 11:42:39,523 DEBUG Face detected at (np.int32(634), np.int32(472), np.int32(448), np.int32(448))
+2025-11-18 11:42:39,529 DEBUG Predict result id=21 conf=33.06490782951663
+2025-11-20 13:29:34,320 DEBUG Face detected at (np.int32(431), np.int32(660), np.int32(282), np.int32(282))
+2025-11-20 13:29:34,327 DEBUG Predict result id=22 conf=63.16710478818764
+2025-11-20 13:29:36,767 DEBUG Face detected at (np.int32(641), np.int32(587), np.int32(379), np.int32(379))
+2025-11-20 13:29:36,775 DEBUG Predict result id=23 conf=44.21093556748743
+2025-11-20 16:53:06,983 DEBUG Face detected at (np.int32(1073), np.int32(485), np.int32(403), np.int32(403))
+2025-11-20 16:53:06,992 DEBUG Predict result id=22 conf=50.85188457959243
+2025-11-20 16:53:57,306 DEBUG Face detected at (np.int32(692), np.int32(307), np.int32(502), np.int32(502))
+2025-11-20 16:53:57,314 DEBUG Predict result id=11 conf=20.4113391883456
+2025-11-20 16:53:59,263 DEBUG Face detected at (np.int32(701), np.int32(309), np.int32(488), np.int32(488))
+2025-11-20 16:53:59,270 DEBUG Predict result id=11 conf=35.15503403800767
+2025-11-24 13:49:30,467 DEBUG Face detected at (np.int32(962), np.int32(175), np.int32(792), np.int32(792))
+2025-11-24 13:49:30,481 DEBUG Predict result id=23 conf=56.126190899308206
+2025-11-24 13:49:33,464 DEBUG Face detected at (np.int32(1015), np.int32(150), np.int32(800), np.int32(800))
+2025-11-24 13:49:33,478 DEBUG Predict result id=23 conf=54.675630134377606
+2025-11-24 13:49:36,350 DEBUG Face detected at (np.int32(932), np.int32(201), np.int32(758), np.int32(758))
+2025-11-24 13:49:36,362 DEBUG Predict result id=23 conf=44.67563329934279
+2025-11-24 15:54:31,121 DEBUG Face detected at (np.int32(698), np.int32(118), np.int32(393), np.int32(393))
+2025-11-24 15:54:31,131 DEBUG Predict result id=65 conf=18.501509639979993
