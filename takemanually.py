@@ -1,350 +1,172 @@
 import tkinter as tk
-from tkinter import Message, Text
-import os, cv2
-import shutil
+from tkinter import *
+import os
 import csv
-import numpy as np
-from PIL import ImageTk, Image
 import pandas as pd
 import datetime
 import time
-import tkinter.ttk as tkk
-import tkinter.font as font
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 ts = time.time()
 Date = datetime.datetime.fromtimestamp(ts).strftime("%Y_%m_%d")
 timeStamp = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S")
-Time = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S")
 Hour, Minute, Second = timeStamp.split(":")
-d = {}
-index = 0
-####GUI for manually fill attendance
+
+
 def manually_fill():
-    global sb
+    d = {}
+    index = [0]  # list so nested functions can mutate it
+
     sb = tk.Tk()
-    sb.iconbitmap("AMS.ico")
-    sb.title("Enter subject name...")
+    # NOTE: removed iconbitmap("AMS.ico") — crashes if icon file is missing
+    sb.title("Manual Attendance")
     sb.geometry("580x320")
-    sb.configure(background="snow")
+    sb.configure(background="black")
 
     def err_screen_for_subject():
-        def ec_delete():
-            ec.destroy()
-
-        global ec
-        ec = tk.Tk()
-        ec.geometry("300x100")
-        ec.iconbitmap("AMS.ico")
-        ec.title("Warning!!")
-        ec.configure(background="snow")
-        tk.Label(
-            ec,
-            text="Please enter subject name!!!",
-            fg="red",
-            bg="white",
-            font=("times", 16, " bold "),
-        ).pack()
-        tk.Button(
-            ec,
-            text="OK",
-            command=ec_delete,
-            fg="black",
-            bg="lawn green",
-            width=9,
-            height=1,
-            activebackground="Red",
-            font=("times", 15, " bold "),
-        ).place(x=90, y=50)
+        # use Toplevel NOT a second Tk() — second Tk() causes crash/freeze
+        ec = tk.Toplevel(sb)
+        ec.geometry("340x110")
+        ec.title("Warning!")
+        ec.configure(background="black")
+        tk.Label(ec, text="Please enter subject name!",
+                 fg="red", bg="black", font=("times", 15, "bold")).pack(pady=15)
+        tk.Button(ec, text="OK", command=ec.destroy,
+                  fg="black", bg="lawn green", width=9,
+                  font=("times", 13, "bold")).pack()
 
     def fill_attendance():
-
-        ##Create table for Attendance
-        global subb
-        subb = SUB_ENTRY.get()
-
+        subb = SUB_ENTRY.get().strip()
         if subb == "":
             err_screen_for_subject()
-        else:
-            sb.destroy()
-            MFW = tk.Tk()
-            MFW.iconbitmap("AMS.ico")
-            MFW.title("Manually attendance of " + str(subb))
-            MFW.geometry("880x470")
-            MFW.configure(background="snow")
+            return
 
-            def del_errsc2():
-                errsc2.destroy()
+        sb.destroy()
 
-            def err_screen1():
-                global errsc2
-                errsc2 = tk.Tk()
-                errsc2.geometry("330x100")
-                errsc2.iconbitmap("AMS.ico")
-                errsc2.title("Warning!!")
-                errsc2.configure(background="snow")
-                tk.Label(
-                    errsc2,
-                    text="Please enter Student & Enrollment!!!",
-                    fg="red",
-                    bg="white",
-                    font=("times", 16, " bold "),
-                ).pack()
-                tk.Button(
-                    errsc2,
-                    text="OK",
-                    command=del_errsc2,
-                    fg="black",
-                    bg="lawn green",
-                    width=9,
-                    height=1,
-                    activebackground="Red",
-                    font=("times", 15, " bold "),
-                ).place(x=90, y=50)
+        MFW = tk.Tk()
+        MFW.title("Manual Attendance — " + subb)
+        MFW.geometry("880x500")
+        MFW.configure(background="black")
 
-            def testVal(inStr, acttyp):
-                if acttyp == "1":  # insert
-                    if not inStr.isdigit():
-                        return False
-                return True
+        def err_screen1():
+            # Toplevel instead of second Tk()
+            errsc = tk.Toplevel(MFW)
+            errsc.geometry("380x110")
+            errsc.title("Warning!")
+            errsc.configure(background="black")
+            tk.Label(errsc, text="Please enter Enrollment & Student name!",
+                     fg="red", bg="black", font=("times", 14, "bold")).pack(pady=15)
+            tk.Button(errsc, text="OK", command=errsc.destroy,
+                      fg="black", bg="lawn green", width=9,
+                      font=("times", 13, "bold")).pack()
 
-            ENR = tk.Label(
-                MFW,
-                text="Enter Enrollment",
-                width=15,
-                height=2,
-                fg="white",
-                bg="blue2",
-                font=("times", 15, " bold "),
-            )
-            ENR.place(x=30, y=100)
+        def testVal(inStr, acttyp):
+            if acttyp == "1":
+                if not inStr.isdigit():
+                    return False
+            return True
 
-            STU_NAME = tk.Label(
-                MFW,
-                text="Enter Student name",
-                width=15,
-                height=2,
-                fg="white",
-                bg="blue2",
-                font=("times", 15, " bold "),
-            )
-            STU_NAME.place(x=30, y=200)
+        tk.Label(MFW, text="Enter Enrollment", width=15, height=2,
+                 fg="white", bg="blue2", font=("times", 15, "bold")).place(x=30, y=100)
 
-            global ENR_ENTRY
-            ENR_ENTRY = tk.Entry(
-                MFW,
-                width=20,
-                validate="key",
-                bg="yellow",
-                fg="red",
-                font=("times", 23, " bold "),
-            )
-            ENR_ENTRY["validatecommand"] = (ENR_ENTRY.register(testVal), "%P", "%d")
-            ENR_ENTRY.place(x=290, y=105)
+        tk.Label(MFW, text="Enter Student Name", width=15, height=2,
+                 fg="white", bg="blue2", font=("times", 15, "bold")).place(x=30, y=200)
 
-            def remove_enr():
-                ENR_ENTRY.delete(first=0, last=22)
+        ENR_ENTRY = tk.Entry(MFW, width=20, validate="key",
+                             bg="yellow", fg="red", font=("times", 23, "bold"))
+        ENR_ENTRY["validatecommand"] = (ENR_ENTRY.register(testVal), "%P", "%d")
+        ENR_ENTRY.place(x=290, y=105)
 
-            STUDENT_ENTRY = tk.Entry(
-                MFW, width=20, bg="yellow", fg="red", font=("times", 23, " bold ")
-            )
-            STUDENT_ENTRY.place(x=290, y=205)
+        STUDENT_ENTRY = tk.Entry(MFW, width=20, bg="yellow", fg="red",
+                                 font=("times", 23, "bold"))
+        STUDENT_ENTRY.place(x=290, y=205)
 
-            def remove_student():
-                STUDENT_ENTRY.delete(first=0, last=22)
+        Notifi = tk.Label(MFW, text="", bg="black", fg="white",
+                          width=45, height=2, font=("times", 14, "bold"))
+        Notifi.place(x=80, y=390)
 
-            ####get important variable
+        def enter_data_DB():
+            ENROLLMENT = ENR_ENTRY.get().strip()
+            STUDENT = STUDENT_ENTRY.get().strip()
+            if ENROLLMENT == "" or STUDENT == "":
+                err_screen1()
+                return
+            d[index[0]] = {"Enrollment": ENROLLMENT, "Name": STUDENT, Date: 1}
+            index[0] += 1
+            ENR_ENTRY.delete(0, "end")
+            STUDENT_ENTRY.delete(0, "end")
+            Notifi.configure(
+                text=f"Added: {STUDENT} ({ENROLLMENT}) — Total: {index[0]}",
+                bg="blue2")
 
-            def enter_data_DB():
-                global index
-                global d
-                ENROLLMENT = ENR_ENTRY.get()
-                STUDENT = STUDENT_ENTRY.get()
-                if ENROLLMENT == "":
-                    err_screen1()
-                elif STUDENT == "":
-                    err_screen1()
-                else:
-                    if index == 0:
-                        d = {
-                            index: {"Enrollment": ENROLLMENT, "Name": STUDENT, Date: 1}
-                        }
-                        index += 1
-                        ENR_ENTRY.delete(0, "end")
-                        STUDENT_ENTRY.delete(0, "end")
-                    else:
-                        d[index] = {"Enrollment": ENROLLMENT, "Name": STUDENT, Date: 1}
-                        index += 1
-                        ENR_ENTRY.delete(0, "end")
-                        STUDENT_ENTRY.delete(0, "end")
-                    # TODO implement CSV code
-                print(d)
+        def create_csv():
+            if not d:
+                Notifi.configure(text="No data entered yet!", bg="red")
+                return
 
-            def create_csv():
-                df = pd.DataFrame(d)
-                csv_name = (
-                    "Attendance(Manually)/"
-                    + subb
-                    + "_"
-                    + Date
-                    + "_"
-                    + Hour
-                    + "-"
-                    + Minute
-                    + "-"
-                    + Second
-                    + ".csv"
-                )
-                df.to_csv(csv_name)
-                O = "CSV created Successfully"
-                Notifi.configure(
-                    text=O,
-                    bg="Green",
-                    fg="white",
-                    width=33,
-                    font=("times", 19, "bold"),
-                )
-                Notifi.place(x=180, y=380)
-                """import csv
-                import tkinter
+            # .T fixes orientation — original pd.DataFrame(d) produced wrong table
+            df = pd.DataFrame(d).T.reset_index(drop=True)
 
-                root = tkinter.Tk()
-                root.title("Attendance of " + subb)
-                root.configure(background="snow")
-                with open(csv_name, newline="") as file:
-                    reader = csv.reader(file)
-                    r = 0
+            # save to project-local folder (original had hardcoded Windows path)
+            out_dir = os.path.join(BASE_DIR, "Attendance", subb)
+            os.makedirs(out_dir, exist_ok=True)
+            csv_name = os.path.join(
+                out_dir, f"{subb}_{Date}_{Hour}-{Minute}-{Second}.csv")
+            df.to_csv(csv_name, index=False)
+            Notifi.configure(text=f"Saved: {csv_name}", bg="green")
 
-                    for col in reader:
-                        c = 0
-                        for row in col:
-                            # i've added some styling
-                            label = tkinter.Label(
-                                root,
-                                width=13,
-                                height=1,
-                                fg="black",
-                                font=("times", 13, " bold "),
-                                bg="lawn green",
-                                text=row,
-                                relief=tkinter.RIDGE,
-                            )
-                            label.grid(row=r, column=c)
-                            c += 1
-                        r += 1
-                root.mainloop()"""
+        def open_folder():
+            import subprocess, sys
+            folder = os.path.join(BASE_DIR, "Attendance", subb)
+            os.makedirs(folder, exist_ok=True)
+            # cross-platform — removed hardcoded C:/Users/patel/... path
+            if sys.platform.startswith("darwin"):
+                subprocess.call(["open", folder])
+            elif sys.platform.startswith("win"):
+                os.startfile(folder)
+            else:
+                subprocess.call(["xdg-open", folder])
 
-            Notifi = tk.Label(
-                MFW,
-                text="CSV created Successfully",
-                bg="Green",
-                fg="white",
-                width=33,
-                height=2,
-                font=("times", 19, "bold"),
-            )
+        tk.Button(MFW, text="Clear",
+                  command=lambda: ENR_ENTRY.delete(0, "end"),
+                  fg="black", bg="deep pink", width=10,
+                  font=("times", 13, "bold")).place(x=695, y=108)
 
-            c1ear_enroll = tk.Button(
-                MFW,
-                text="Clear",
-                command=remove_enr,
-                fg="black",
-                bg="deep pink",
-                width=10,
-                height=1,
-                activebackground="Red",
-                font=("times", 15, " bold "),
-            )
-            c1ear_enroll.place(x=690, y=100)
+        tk.Button(MFW, text="Clear",
+                  command=lambda: STUDENT_ENTRY.delete(0, "end"),
+                  fg="black", bg="deep pink", width=10,
+                  font=("times", 13, "bold")).place(x=695, y=208)
 
-            c1ear_student = tk.Button(
-                MFW,
-                text="Clear",
-                command=remove_student,
-                fg="black",
-                bg="deep pink",
-                width=10,
-                height=1,
-                activebackground="Red",
-                font=("times", 15, " bold "),
-            )
-            c1ear_student.place(x=690, y=200)
+        tk.Button(MFW, text="Enter Data", command=enter_data_DB,
+                  fg="black", bg="lime green", width=20, height=2,
+                  font=("times", 15, "bold")).place(x=80, y=300)
 
-            DATA_SUB = tk.Button(
-                MFW,
-                text="Enter Data",
-                command=enter_data_DB,
-                fg="black",
-                bg="lime green",
-                width=20,
-                height=2,
-                activebackground="Red",
-                font=("times", 15, " bold "),
-            )
-            DATA_SUB.place(x=170, y=300)
+        tk.Button(MFW, text="Save to CSV", command=create_csv,
+                  fg="white", bg="red", width=20, height=2,
+                  font=("times", 15, "bold")).place(x=430, y=300)
 
-            MAKE_CSV = tk.Button(
-                MFW,
-                text="Convert to CSV",
-                command=create_csv,
-                fg="black",
-                bg="red",
-                width=20,
-                height=2,
-                activebackground="Red",
-                font=("times", 15, " bold "),
-            )
-            MAKE_CSV.place(x=570, y=300)
-            # TODO remove check sheet
-            def attf():
-                import subprocess
+        tk.Button(MFW, text="Check Sheets", command=open_folder,
+                  fg="black", bg="lawn green", width=12,
+                  font=("times", 13, "bold")).place(x=730, y=440)
 
-                subprocess.Popen(
-                    r'explorer /select,"C:/Users/patel/OneDrive/Documents/E/FBAS/Attendance(Manually)"'
-                )
+        MFW.mainloop()
 
-            attf = tk.Button(
-                MFW,
-                text="Check Sheets",
-                command=attf,
-                fg="black",
-                bg="lawn green",
-                width=12,
-                height=1,
-                activebackground="Red",
-                font=("times", 14, " bold "),
-            )
-            attf.place(x=730, y=410)
+    # ── subject entry window ──────────────────────────────────────
+    tk.Label(sb, text="Manual Attendance Entry",
+             bg="black", fg="green",
+             font=("arial", 20, "bold")).pack(pady=20)
 
-            MFW.mainloop()
+    tk.Label(sb, text="Enter Subject", width=15, height=2,
+             fg="white", bg="blue2",
+             font=("times", 15, "bold")).place(x=30, y=100)
 
-    SUB = tk.Label(
-        sb,
-        text="Enter Subject",
-        width=15,
-        height=2,
-        fg="white",
-        bg="blue2",
-        font=("times", 15, " bold "),
-    )
-    SUB.place(x=30, y=100)
-
-    global SUB_ENTRY
-
-    SUB_ENTRY = tk.Entry(
-        sb, width=20, bg="yellow", fg="red", font=("times", 23, " bold ")
-    )
+    SUB_ENTRY = tk.Entry(sb, width=20, bg="yellow", fg="red",
+                         font=("times", 23, "bold"))
     SUB_ENTRY.place(x=250, y=105)
 
-    fill_manual_attendance = tk.Button(
-        sb,
-        text="Fill Attendance",
-        command=fill_attendance,
-        fg="white",
-        bg="deep pink",
-        width=20,
-        height=2,
-        activebackground="Red",
-        font=("times", 15, " bold "),
-    )
-    fill_manual_attendance.place(x=250, y=160)
+    tk.Button(sb, text="Fill Attendance", command=fill_attendance,
+              fg="white", bg="deep pink", width=20, height=2,
+              font=("times", 15, "bold")).place(x=250, y=180)
+
     sb.mainloop()
