@@ -16,7 +16,7 @@ import sys
 import show_attendance
 import takeImage
 import trainImage
-import automaticAttedance
+import automaticAttendance
 
 # engine = pyttsx3.init()
 # engine.say("Welcome!")
@@ -274,7 +274,7 @@ def TakeImageUI():
         bd=10,
         font=("Verdana", 18, "bold"),
         bg="#333333",  # Dark background for the button
-        fg="yellow",  # Bright text color for the button
+        fg="black",  # Black text color for the button
         height=2,
         width=12,
         relief=RIDGE,
@@ -298,7 +298,7 @@ def TakeImageUI():
         bd=10,
         font=("Verdana", 18, "bold"),
         bg="#333333",  # Dark background for the button
-        fg="yellow",  # Bright text color for the button
+        fg="black",  # Black text color for the button
         height=2,
         width=12,
         relief=RIDGE,
@@ -311,9 +311,9 @@ r = tk.Button(
     text="Register a new student",
     command=TakeImageUI,
     bd=10,
-    font=("Verdana", 16),
+    font=("Verdana", 16, "bold"),
     bg="black",
-    fg="yellow",
+    fg="black",
     height=2,
     width=17,
 )
@@ -329,9 +329,9 @@ r = tk.Button(
     text="Take Attendance",
     command=automatic_attedance,
     bd=10,
-    font=("Verdana", 16),
+    font=("Verdana", 16, "bold"),
     bg="black",
-    fg="yellow",
+    fg="black",
     height=2,
     width=17,
 )
@@ -347,9 +347,9 @@ r = tk.Button(
     text="View Attendance",
     command=view_attendance,
     bd=10,
-    font=("Verdana", 16),
+    font=("Verdana", 16, "bold"),
     bg="black",
-    fg="yellow",
+    fg="black",
     height=2,
     width=17,
 )
@@ -359,9 +359,9 @@ r = tk.Button(
     text="EXIT",
     bd=10,
     command=quit,
-    font=("Verdana", 16),
+    font=("Verdana", 16, "bold"),
     bg="black",
-    fg="yellow",
+    fg="black",
     height=2,
     width=17,
 )
