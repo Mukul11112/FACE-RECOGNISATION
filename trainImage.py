@@ -1,38 +1,62 @@
-import csv
-import os, cv2
+import os
+import cv2
 import numpy as np
-import pandas as pd
-import datetime
-import time
-from PIL import ImageTk, Image
+from PIL import Image
 
 
-# Train Image
-def TrainImage(haarcasecade_path, trainimage_path, trainimagelabel_path, message,text_to_speech):
+def TrainImage(haarcasecade_path, trainimage_path, trainimagelabel_path, message, text_to_speech):
     recognizer = cv2.face.LBPHFaceRecognizer_create()
-    detector = cv2.CascadeClassifier(haarcasecade_path)
-    faces, Id = getImagesAndLables(trainimage_path)
-    recognizer.train(faces, np.array(Id))
+
+    faces, ids = getImagesAndLabels(trainimage_path)
+
+    if len(faces) == 0:
+        res = "No training images found. Please capture images first."
+        message.configure(text=res)
+        text_to_speech(res)
+        return
+
+    recognizer.train(faces, np.array(ids))
+
+    os.makedirs(os.path.dirname(trainimagelabel_path), exist_ok=True)
     recognizer.save(trainimagelabel_path)
-    res = "Image Trained successfully"  # +",".join(str(f) for f in Id)
+
+    res = f"Model trained on {len(set(ids))} student(s), {len(faces)} images."
     message.configure(text=res)
     text_to_speech(res)
 
 
-def getImagesAndLables(path):
-    # imagePath = [os.path.join(path, f) for d in os.listdir(path) for f in d]
-    newdir = [os.path.join(path, d) for d in os.listdir(path)]
-    imagePath = [
-        os.path.join(newdir[i], f)
-        for i in range(len(newdir))
-        for f in os.listdir(newdir[i])
-    ]
+def getImagesAndLabels(path):
     faces = []
-    Ids = []
-    for imagePath in imagePath:
-        pilImage = Image.open(imagePath).convert("L")
-        imageNp = np.array(pilImage, "uint8")
-        Id = int(os.path.split(imagePath)[-1].split("_")[1])
-        faces.append(imageNp)
-        Ids.append(Id)
-    return faces, Ids
+    ids = []
+
+    if not os.path.exists(path):
+        return faces, ids
+
+    for folder_name in os.listdir(path):
+        folder_path = os.path.join(path, folder_name)
+        if not os.path.isdir(folder_path):
+            continue
+
+        # folder name format: Enrollment_Name
+        parts = folder_name.split("_")
+        try:
+            student_id = int(parts[0])
+        except ValueError:
+            print(f"Skipping folder (cannot parse ID): {folder_name}")
+            continue
+
+        for img_file in os.listdir(folder_path):
+            if not img_file.lower().endswith((".jpg", ".jpeg", ".png")):
+                continue
+
+            img_path = os.path.join(folder_path, img_file)
+            try:
+                pil_img = Image.open(img_path).convert("L")
+                img_np = np.array(pil_img, dtype="uint8")
+                faces.append(img_np)
+                ids.append(student_id)
+            except Exception as e:
+                print(f"Skipping {img_path}: {e}")
+                continue
+
+    return faces, ids
