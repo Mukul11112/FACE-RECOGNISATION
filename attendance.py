@@ -321,7 +321,7 @@ r.place(x=100, y=520)
 
 
 def automatic_attedance():
-    automaticAttedance.subjectChoose(text_to_speech)
+    automaticAttendance.TakeAttendance().subjectChoose(text_to_speech)
 
 
 r = tk.Button(
