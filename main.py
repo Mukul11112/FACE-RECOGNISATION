@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import *
 import os
 import pyttsx3
-
 # ── paths ─────────────────────────────────────────────────────────
 BASE_DIR         = os.path.dirname(os.path.abspath(__file__))
 HAAR_PATH        = os.path.join(BASE_DIR, "haarcascade_frontalface_default.xml")
