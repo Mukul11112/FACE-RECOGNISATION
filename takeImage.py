@@ -6,7 +6,6 @@ import pandas as pd
 import datetime
 import time
 
-
 def TakeImage(l1, l2, haarcasecade_path, trainimage_path, message, err_screen, text_to_speech):
     # ── input validation ──────────────────────────────────────────
     if l1 == "" and l2 == "":
